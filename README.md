@@ -157,16 +157,16 @@ El archivo se crea en el directorio de trabajo del ejecutable (normalmente
 **Archivo:** `inventario.asm`
 
 ``asm
-; Busca el producto y deja ESI apuntando a él si existe.
-; Recibe: bufferCodigo (global) y contador (global).
-; Devuelve: EAX = 1 encontrado / 0 no; ESI = dirección del producto.
-; USES preserva EDI y ECX; ESI es salida intencional.
-BuscarProducto PROC USES edi ecx
-    mov esi, OFFSET inventario
-    mov ecx, contador
-    cmp ecx, 0
-    je NoEncontrado
-LoopBus:
+- ; Busca el producto y deja ESI apuntando a él si existe.
+- ; Recibe: bufferCodigo (global) y contador (global).
+- ; Devuelve: EAX = 1 encontrado / 0 no; ESI = dirección del producto.
+- ; USES preserva EDI y ECX; ESI es salida intencional.
+- BuscarProducto PROC USES edi ecx
+-    mov esi, OFFSET inventario
+-    mov ecx, contador
+-    cmp ecx, 0
+-    je NoEncontrado
+- LoopBus:
     mov edi, OFFSET bufferCodigo
     push ecx
     mov ecx, 8
