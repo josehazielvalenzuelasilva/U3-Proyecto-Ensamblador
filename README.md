@@ -35,12 +35,13 @@ mayoreo y tope de 100 unidades en existencia).
 ---
 
 ## 2. Estructura del repositorio
-/
-├── inventario.asm Código fuente completo
-├── inventario.sln Solución de Visual Studio
-├── inventario.vcxproj Proyecto
-├── inventario.txt Inventario de prueba (binario, 424 bytes)
-└── README.md Este archivo (reporte incluido)
+
+inventario.asm Código fuente completo
+inventario.sln Solución de Visual Studio
+inventario.vcxproj Proyecto
+inventario.txt Inventario de prueba (binario, 424 bytes)
+README.md Este archivo (reporte incluido)
+
 ---
 
 ## 3. Ejecución
@@ -64,8 +65,6 @@ Cargar catalogo
 
 Salir
 Seleccione una opcion:
-
-text
 
 | Opción | Acción | Modifica inventario | Modifica ingresos | Toca disco |
 |---|---|---|---|---|
