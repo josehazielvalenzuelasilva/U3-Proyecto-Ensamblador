@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="U3_PROYECTO_ENSAMBLADOR/U3_PROYECTO_ENSAMBLADOR.vcxproj" />
+</Solution>
