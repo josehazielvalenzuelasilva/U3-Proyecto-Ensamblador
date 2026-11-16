@@ -55,3 +55,23 @@ mayoreo y tope de 100 unidades en existencia).
   `ConvertirPrecio`, `ConvertirEntero`, `ValidarFormatoCodigo`,
   `CopiarCampo`, `CopiarCampoNombre`, `MostrarMXN`). Requieren `ret` y
   manejo de pila.
+
+### Reglas de negocio
+
+- Código de producto: formato `ABC-123` (3 letras mayúsculas, guion, 3 dígitos).
+- Precio: `0.01` a `9999.99` (se guarda en centavos).
+- Existencia: 0 a 100 unidades.
+- Máximo 10 productos en inventario.
+- **Descuento del 10% por mayoreo** al vender 3 o más unidades del mismo producto.
+- **Tope de 100 unidades** al recibir mercancía (si la suma excede 100, se ajusta a 100).
+
+## Archivo de inventario
+
+`inventario.txt` es **binario** (no texto legible). Contiene:
+
+- 4 bytes: `contador` (número de productos, DWORD).
+- 420 bytes: los 10 registros `Producto` (42 bytes cada uno).
+
+Se genera con la opción **6. Guardar catálogo** y se lee con **7. Cargar catálogo**.
+El archivo se crea en el directorio de trabajo del ejecutable (normalmente
+`x86\Debug\`).
