@@ -47,7 +47,7 @@ mayoreo y tope de 100 unidades en existencia).
 ## 3. Ejecución
 
 Al ejecutar, aparece el menú:
-=== BOUTIQUE ===
+- BOUTIQUE 
 
 Registrar producto
 
