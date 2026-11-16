@@ -6,8 +6,6 @@
 **Horario:** 10:00 – 11:00  
 **Docente:** Dr. José Luis Medina Jiménez  
 **Actividad:** Proyecto Sistema de Inventario y Ventas (Ropa) – Unidad 3  
-**Archivo fuente:** `inventario.asm`  
-**Plataforma:** MASM x86 32 bits + Irvine32 (Visual Studio, Win32)
 
 ---
 
