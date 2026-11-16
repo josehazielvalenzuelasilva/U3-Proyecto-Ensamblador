@@ -156,7 +156,7 @@ El archivo se crea en el directorio de trabajo del ejecutable (normalmente
 #### (a) Procedimiento reutilizado – `BuscarProducto`
 **Archivo:** `inventario.asm`
 
-```asm
+``asm
 ; Busca el producto y deja ESI apuntando a él si existe.
 ; Recibe: bufferCodigo (global) y contador (global).
 ; Devuelve: EAX = 1 encontrado / 0 no; ESI = dirección del producto.
