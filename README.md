@@ -266,53 +266,59 @@ Nota: una macro reduce la repetición en el archivo .asm, pero MASM
 expande sus instrucciones en cada punto de uso. El ahorro es de
 legibilidad y mantenimiento, no de tamaño del binario.
 
-6.4 Documentación de procedimientos
-Procedimiento	Recibe	Devuelve	Registros que preserva (USES)	Registros de salida
-LeerOpcion	bufferOpcion	AL = dígito 1..8 o 0	EBX, ECX, EDX, ESI, EDI	AL
-RegistrarProducto	buffers globales	—	EBX, ESI, EDI, EBP	—
-CopiarCampo	ESI, EDI	ESI/EDI avanzados	— (no aplica)	ESI, EDI, ECX
-CopiarCampoNombre	ESI, EDI	ESI/EDI avanzados	— (no aplica)	ESI, EDI, ECX
-ValidarFormatoCodigo	bufferCodigo	EAX = 1/0	ESI, ECX	EAX
-ConvertirPrecio	bufferPrecio	EAX = centavos, EDX = 0/1	ESI, EBX, ECX, EBP, EDI	EAX, EDX
-ConvertirEntero	bufferCantidad	EAX = valor, EDX = 0/1	ESI, ECX	EAX, EDX
-BuscarCodigo	bufferCodigo	EAX = 1/0	ESI, EDI, ECX	EAX
-BuscarProducto	bufferCodigo	EAX = 1/0, ESI = producto	EDI, ECX	EAX, ESI
-MostrarInventario	inventario, contador	—	ESI, ECX	—
-MostrarMXN	EAX = centavos	—	EBX, EDX	—
-RecibirMercancia	bufferCodigo, bufferCantidad	—	EBX, ESI	—
-Vender	bufferCodigo, bufferCantidad	—	EBX, ECX, ESI, EDI	—
-MostrarResumen	inventario, contador	—	ESI, ECX, EBX	—
-GuardarArchivo	inventario, contador	—	EAX	—
-CargarArchivo	inventario.txt	—	—	—
-Verificación de pila: todos los procedimientos con USES balancean
-la pila porque MASM inserta los push al entrar y los pop al salir. Los
-registros de salida (EAX, EDX, ESI según el caso) quedan fuera de USES.
+### 6.4 Documentación de procedimientos
 
-6.5 Tabla de pruebas actualizada
-#	Entrada	Resultado esperado	Resultado obtenido
-1	Registrar ABC-123, Blusa, 185.50, 10	Producto agregado, contador=1	 Producto agregado, contador=1
-2	Registrar código AB-123	Error formato, reintenta código	 Mensaje y reintento
-3	Registrar código duplicado ABC-123	Error código duplicado	 Mensaje y reintento
-4	Registrar precio 0	Error precio inválido	 Mensaje y reintento
-5	Registrar precio 10000.00	Error precio inválido (>9999.99)	 Mensaje y reintento
-6	Registrar cantidad 150	Error cantidad inválida (>100)	 Mensaje y reintento
-7	Registrar 11.º producto	Error inventario lleno	 Mensaje de lleno
-8	Registrar nombre corto y luego largo	Nombre correcto, sin basura	 Sin residuos del buffer anterior
-9	Recibir mercancía ABC-123 cantidad 5	Existencia 10 → 15	 Existencia actualizada
-10	Recibir mercancía ABC-123 cantidad 95	Existencia limitada a 100	 Existencia = 100
-11	Recibir mercancía código inexistente	Error no encontrado	 Mensaje
-12	Vender ABC-123 cantidad 2	Venta sin descuento	 Venta sin descuento
-13	Vender ABC-123 cantidad 3	Descuento 10%	 Mensaje descuento y venta
-14	Vender cantidad > existencia	Error stock insuficiente	 Mensaje de stock
-15	Vender código inexistente	Error no encontrado	 Mensaje
-16	Mostrar inventario	ABC-124 Calzon 35.00 MXN 1 con espacios	 Formato legible
-17	Mostrar resumen con inventario	Valor inventario e ingresos en MXN	 Cifras correctas
-18	Guardar catálogo	Archivo inventario.txt de 424 bytes	 Archivo generado
-19	Cargar catálogo guardado	Inventario restaurado	 Datos restaurados
-20	Cargar archivo inexistente	Error de archivo	 Mensaje
-21	Cargar archivo con contador > 10	Error, contador = 0	 Validación aplicada
-22	Salir del menú	Mensaje de despedida	 Sale correctamente
-Regla adicional del negocio probada: descuento del 10% por mayoreo
+| Procedimiento | Recibe | Devuelve | Registros que preserva (USES) | Registros de salida |
+|---|---|---|---|---|
+| `LeerOpcion` | `bufferOpcion` | AL = dígito 1..8 o 0 | EBX, ECX, EDX, ESI, EDI | AL |
+| `RegistrarProducto` | buffers globales | — | EBX, ESI, EDI, EBP | — |
+| `CopiarCampo` | ESI, EDI | ESI/EDI avanzados | — (no aplica) | ESI, EDI, ECX |
+| `CopiarCampoNombre` | ESI, EDI | ESI/EDI avanzados | — (no aplica) | ESI, EDI, ECX |
+| `ValidarFormatoCodigo` | `bufferCodigo` | EAX = 1/0 | ESI, ECX | EAX |
+| `ConvertirPrecio` | `bufferPrecio` | EAX = centavos, EDX = 0/1 | ESI, EBX, ECX, EBP, EDI | EAX, EDX |
+| `ConvertirEntero` | `bufferCantidad` | EAX = valor, EDX = 0/1 | ESI, ECX | EAX, EDX |
+| `BuscarCodigo` | `bufferCodigo` | EAX = 1/0 | ESI, EDI, ECX | EAX |
+| `BuscarProducto` | `bufferCodigo` | EAX = 1/0, ESI = producto | EDI, ECX | EAX, ESI |
+| `MostrarInventario` | `inventario`, `contador` | — | ESI, ECX | — |
+| `MostrarMXN` | EAX = centavos | — | EBX, EDX | — |
+| `RecibirMercancia` | `bufferCodigo`, `bufferCantidad` | — | EBX, ESI | — |
+| `Vender` | `bufferCodigo`, `bufferCantidad` | — | EBX, ECX, ESI, EDI | — |
+| `MostrarResumen` | `inventario`, `contador` | — | ESI, ECX, EBX | — |
+| `GuardarArchivo` | `inventario`, `contador` | — | EAX | — |
+| `CargarArchivo` | `inventario.txt` | — | — | — |
+
+**Verificación de pila:** todos los procedimientos con `USES` balancean
+la pila porque MASM inserta los `push` al entrar y los `pop` al salir. Los
+registros de salida (EAX, EDX, ESI según el caso) quedan **fuera** de `USES`.
+
+### 6.5 Tabla de pruebas actualizada
+
+| # | Entrada | Resultado esperado | Resultado obtenido |
+|---|---|---|---|
+| 1 | Registrar `ABC-123`, `Blusa`, `185.50`, `10` | Producto agregado, contador=1 |  Producto agregado, contador=1 |
+| 2 | Registrar código `AB-123` | Error formato, reintenta código |  Mensaje y reintento |
+| 3 | Registrar código duplicado `ABC-123` | Error código duplicado |  Mensaje y reintento |
+| 4 | Registrar precio `0` | Error precio inválido |  Mensaje y reintento |
+| 5 | Registrar precio `10000.00` | Error precio inválido (>9999.99) |  Mensaje y reintento |
+| 6 | Registrar cantidad `150` | Error cantidad inválida (>100) |  Mensaje y reintento |
+| 7 | Registrar 11.º producto | Error inventario lleno |  Mensaje de lleno |
+| 8 | Registrar nombre corto y luego largo | Nombre correcto, sin basura |  Sin residuos del buffer anterior |
+| 9 | Recibir mercancía `ABC-123` cantidad `5` | Existencia 10 → 15 |  Existencia actualizada |
+| 10 | Recibir mercancía `ABC-123` cantidad `95` | Existencia limitada a 100 |  Existencia = 100 |
+| 11 | Recibir mercancía código inexistente | Error no encontrado |  Mensaje |
+| 12 | Vender `ABC-123` cantidad `2` | Venta sin descuento |  Venta sin descuento |
+| 13 | Vender `ABC-123` cantidad `3` | Descuento 10% |  Mensaje descuento y venta |
+| 14 | Vender cantidad > existencia | Error stock insuficiente |  Mensaje de stock |
+| 15 | Vender código inexistente | Error no encontrado |  Mensaje |
+| 16 | Mostrar inventario | `ABC-124 Calzon 35.00 MXN 1` con espacios |  Formato legible |
+| 17 | Mostrar resumen con inventario | Valor inventario e ingresos en MXN |  Cifras correctas |
+| 18 | Guardar catálogo | Archivo `inventario.txt` de 424 bytes | Archivo generado |
+| 19 | Cargar catálogo guardado | Inventario restaurado |  Datos restaurados |
+| 20 | Cargar archivo inexistente | Error de archivo |  Mensaje |
+| 21 | Cargar archivo con contador > 10 | Error, contador = 0 |  Validación aplicada |
+| 22 | Salir del menú | Mensaje de despedida |  Sale correctamente |
+
+**Regla adicional del negocio probada:** descuento del 10% por mayoreo
 (cantidad ≥ 3) — prueba #13 .
 
 
